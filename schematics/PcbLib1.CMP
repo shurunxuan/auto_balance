@@ -1,0 +1,14 @@
+Component   : mpu6050
+PCB Library : PcbLib1.PcbLib
+Date        : 2018/1/25
+Time        : 11:46:55
+
+
+
+Dimension : 5.74 x 5.283 mm
+
+ Layer(s)              Pads(s)  Tracks(s)  Fill(s)  Arc(s)  Text(s)
+--------------------------------------------------------------------
+ Top Overlay                 0          8        0       1        0
+--------------------------------------------------------------------
+ Total                       0          8        0       1        0
