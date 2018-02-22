@@ -20,9 +20,9 @@
 // Read two bytes at a time
 #define NUM_OF_REC_BYTES    2
 
-// First, we need to wake up the MPU-6050
-// by writing 0x00 to the register 0x6B.
-const uint8_t TXData[] = {0x6B, 0x00};
+// Gravitational acceleration
+#define G 9.794f
+
 // MPU-6050 requires 14 bytes of data
 /* 0x3B, Acceleration of X axis: ACC_X
    0x3D, Acceleration of Y axis: ACC_Y
@@ -39,6 +39,13 @@ static uint8_t RXData[NUM_OF_REC_BYTES];
 static volatile uint32_t xferIndex;
 // Flag that indicates the I2C read data complete
 static volatile int8_t data_ready;
+// Current ACC ratio of MPU-6050
+static MPU_ACC_CONF acc_conf_ = ACC_2G;
+const float ACC_RATIO[] = {2.0f, 4.0f, 8.0f, 16.0f};
+// Current GYR ratio of MPU-6050
+static MPU_GYR_CONF gyr_conf_ = GYR_250;
+const float GYR_RATIO[] = {250.0f, 500.0f, 1000.0f, 2000.0f};
+
 
 // I2C Master Configuration Parameter
 const eUSCI_I2C_MasterConfig i2cConfig =
@@ -71,6 +78,31 @@ void setup_i2c(void)
     MAP_Interrupt_enableInterrupt(INT_EUSCIB0);
 }
 
+// Read data through I2C from specified register
+// Data saved in RXData
+void i2c_read(uint8_t reg_addr)
+{
+    data_ready = 0;
+
+    /* Making sure the last transaction has been completely sent out */
+    while (MAP_I2C_masterIsStopSent(EUSCI_B0_BASE));
+
+    MAP_Interrupt_enableSleepOnIsrExit();
+
+    /* Send the register address */
+    MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, reg_addr);
+
+    /* Sent the address, now we need to initiate the read */
+    xferIndex = 0;
+    MAP_I2C_masterReceiveStart(EUSCI_B0_BASE);
+    MAP_I2C_enableInterrupt(EUSCI_B0_BASE, EUSCI_B_I2C_RECEIVE_INTERRUPT0);
+
+    MAP_PCM_gotoLPM0InterruptSafe();
+
+    // Wait for the data is ready
+    while (data_ready == 0);
+}
+
 // Wake up MPU-6050
 void setup_mpu_6050(void)
 {
@@ -80,9 +112,51 @@ void setup_mpu_6050(void)
     MAP_Interrupt_enableSleepOnIsrExit();
 
     /* Writing 0x00 to register 0x6B */
-    MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, TXData[0]);
-    MAP_I2C_masterSendMultiByteNext(EUSCI_B0_BASE, TXData[1]);
+    MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, 0x6B);
+    MAP_I2C_masterSendMultiByteNext(EUSCI_B0_BASE, 0x00);
     MAP_I2C_masterSendMultiByteStop(EUSCI_B0_BASE);
+}
+
+// Setup ratio for MPU-6050 data
+void setup_ratio(MPU_ACC_CONF acc_conf, MPU_GYR_CONF gyr_conf)
+{
+    uint8_t acc_reg;
+    uint8_t gyr_reg;
+    // The register address of acceleration is 0x1C
+    i2c_read(0x1C);
+    acc_reg = RXData[0];
+    acc_reg = ((acc_reg & 0xE7) | ((char)acc_conf << 3));
+
+    /* Making sure the last transaction has been completely sent out */
+    while (MAP_I2C_masterIsStopSent(EUSCI_B0_BASE));
+
+    MAP_Interrupt_enableSleepOnIsrExit();
+
+    /* Writing acc_reg to register 0x1C */
+    MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, 0x1C);
+    MAP_I2C_masterSendMultiByteNext(EUSCI_B0_BASE, acc_reg);
+    MAP_I2C_masterSendMultiByteStop(EUSCI_B0_BASE);
+
+    // Set the global configure
+    acc_conf_ = acc_conf;
+
+    // The gyro address of acceleration is 0x1B
+    i2c_read(0x1B);
+    gyr_reg = RXData[0];
+    gyr_reg = ((gyr_reg & 0xE7) | ((char)gyr_conf << 3));
+
+    /* Making sure the last transaction has been completely sent out */
+    while (MAP_I2C_masterIsStopSent(EUSCI_B0_BASE));
+
+    MAP_Interrupt_enableSleepOnIsrExit();
+
+    /* Writing gyr_reg to register 0x1B */
+    MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, 0x1B);
+    MAP_I2C_masterSendMultiByteNext(EUSCI_B0_BASE, gyr_reg);
+    MAP_I2C_masterSendMultiByteStop(EUSCI_B0_BASE);
+
+    // Set the global configure
+    gyr_conf_ = gyr_conf;
 }
 
 void request_raw_mpu_data(MPU_DATA_RAW* data)
@@ -91,31 +165,12 @@ void request_raw_mpu_data(MPU_DATA_RAW* data)
     int8_t i;
     for (i = 0; i < 7; ++i)
     {
-        uint16_t data_u = 0;
-
-        data_ready = 0;
-
-        /* Making sure the last transaction has been completely sent out */
-        while (MAP_I2C_masterIsStopSent(EUSCI_B0_BASE));
-
-        MAP_Interrupt_enableSleepOnIsrExit();
-
-        /* Send the data address to MPU-6050 */
-        MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, RegData[i]);
-
-        /* Sent the address, now we need to initiate the read */
-        xferIndex = 0;
-        MAP_I2C_masterReceiveStart(EUSCI_B0_BASE);
-        MAP_I2C_enableInterrupt(EUSCI_B0_BASE, EUSCI_B_I2C_RECEIVE_INTERRUPT0);
-
-        MAP_PCM_gotoLPM0InterruptSafe();
-
-        // Wait for the data is ready
-        while (data_ready == 0);
-
-        // Combine 2 bytes into an int16_t
+        uint16_t data_u;
+        i2c_read(RegData[i]);
+        // Combine 2 bytes
         data_u = RXData[0];
         data_u = (data_u << 8) | RXData[1];
+
         data_array[i] = *((int16_t*)((uint16_t*)(&data_u)));
     }
     data->ACC_X = data_array[0];
@@ -125,6 +180,31 @@ void request_raw_mpu_data(MPU_DATA_RAW* data)
     data->GYR_X = data_array[4];
     data->GYR_Y = data_array[5];
     data->GYR_Z = data_array[6];
+}
+
+void request_mpu_data(MPU_DATA* data)
+{
+    int16_t data_array[7];
+    int8_t i;
+    for (i = 0; i < 7; ++i)
+    {
+        uint16_t data_u;
+        i2c_read(RegData[i]);
+        // Combine 2 bytes
+        data_u = RXData[0];
+        data_u = (data_u << 8) | RXData[1];
+
+        data_array[i] = *((int16_t*)((uint16_t*)(&data_u)));
+    }
+    float acc_r_temp = ACC_RATIO[(uint8_t)acc_conf_] * G / 32768.0f;
+    float gyr_r_temp = GYR_RATIO[(uint8_t)gyr_conf_] / 32768.0f;
+    data->ACC_X = acc_r_temp * data_array[0];
+    data->ACC_Y = acc_r_temp * data_array[1];
+    data->ACC_Z = acc_r_temp * data_array[2];
+    data->TEMP  = data_array[3];
+    data->GYR_X = gyr_r_temp * data_array[4];
+    data->GYR_Y = gyr_r_temp * data_array[5];
+    data->GYR_Z = gyr_r_temp * data_array[6];
 }
 
 /*******************************************************************************

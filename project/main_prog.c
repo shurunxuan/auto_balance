@@ -16,6 +16,7 @@
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
 /* Standard Defines */
+#include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
@@ -24,7 +25,7 @@
 #include "uart.h"
 #include "motor.h"
 
-MPU_DATA_RAW mpu_data;
+MPU_DATA mpu_data;
 
 // Convert integers to strings
 char* itoa(int num, char* str, int radix);
@@ -39,6 +40,7 @@ void setup(void)
     setup_i2c();
 
     setup_mpu_6050();
+    setup_ratio(ACC_4G, GYR_1000);
 
     setup_pwm();
 
@@ -63,26 +65,23 @@ void loop(void)
     }
     set_pwm_duty(duty, TIMER_PERIOD - duty);
 
-    set_motor_run(mpu_data.ACC_Z < -2000);
-    set_motor_1_direction(mpu_data.ACC_Y < -2000);
-    set_motor_2_direction(mpu_data.ACC_Y > 2000);
+    set_motor_run(mpu_data.ACC_Z < -1.2f);
+    set_motor_1_direction(mpu_data.ACC_Y < -1.2f);
+    set_motor_2_direction(mpu_data.ACC_Y > 1.2f);
 
-    request_raw_mpu_data(&mpu_data);
+    request_mpu_data(&mpu_data);
     char value_a[10];
     memset(value_a, 0x00, 10);
-    itoa(mpu_data.ACC_X, value_a, 10);
+    sprintf(value_a, "%f\t", mpu_data.ACC_X);
     send_string(value_a, 10);
-    send_string("\t", 2);
 
     memset(value_a, 0x00, 10);
-    itoa(mpu_data.ACC_Y, value_a, 10);
+    sprintf(value_a, "%f\t", mpu_data.ACC_Y);
     send_string(value_a, 10);
-    send_string("\t", 2);
 
     memset(value_a, 0x00, 10);
-    itoa(mpu_data.ACC_Z, value_a, 10);
+    sprintf(value_a, "%f\t", mpu_data.ACC_Z);
     send_string(value_a, 10);
-    send_string("\t", 2);
 
     memset(value_a, 0x00, 10);
     itoa(mpu_data.TEMP, value_a, 10);
@@ -90,27 +89,24 @@ void loop(void)
     send_string("\t", 2);
 
     memset(value_a, 0x00, 10);
-    itoa(mpu_data.GYR_X, value_a, 10);
+    sprintf(value_a, "%f\t", mpu_data.GYR_X);
+    send_string(value_a, 10);
+
+    memset(value_a, 0x00, 10);
+    sprintf(value_a, "%f\t", mpu_data.GYR_Y);
+    send_string(value_a, 10);
+
+    memset(value_a, 0x00, 10);
+    sprintf(value_a, "%f\t", mpu_data.GYR_Z);
+    send_string(value_a, 10);
+
+    memset(value_a, 0x00, 10);
+    itoa(get_motor_1_speed(), value_a, 10);
     send_string(value_a, 10);
     send_string("\t", 2);
 
     memset(value_a, 0x00, 10);
-    itoa(mpu_data.GYR_Y, value_a, 10);
-    send_string(value_a, 10);
-    send_string("\t", 2);
-
-    memset(value_a, 0x00, 10);
-    itoa(mpu_data.GYR_Z, value_a, 10);
-    send_string(value_a, 10);
-    send_string("\t", 2);
-
-    memset(value_a, 0x00, 10);
-    itoa(get_motor_1_speed() * 1500, value_a, 10);
-    send_string(value_a, 10);
-    send_string("\t", 2);
-
-    memset(value_a, 0x00, 10);
-    itoa(get_motor_2_speed() * 1500, value_a, 10);
+    itoa(get_motor_2_speed(), value_a, 10);
     send_string(value_a, 10);
     send_string("\n", 2);
 }
