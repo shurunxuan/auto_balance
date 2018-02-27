@@ -40,13 +40,15 @@ void setup(void)
     setup_i2c();
 
     setup_mpu_6050();
-    setup_ratio(ACC_4G, GYR_1000);
+    //setup_ratio(ACC_4G, GYR_1000);
 
     setup_pwm();
 
     stop_motor();
     set_motor_1_forward();
     set_motor_2_forward();
+
+    send_string("Complete", 9);
 }
 
 // Currently, this is a test function.
@@ -65,7 +67,7 @@ void loop(void)
     }
     set_pwm_duty(duty, TIMER_PERIOD - duty);
 
-    set_motor_run(mpu_data.ACC_Z < -1.2f);
+    set_motor_run(mpu_data.ACC_Z > -1.2f);
     set_motor_1_direction(mpu_data.ACC_Y < -1.2f);
     set_motor_2_direction(mpu_data.ACC_Y > 1.2f);
 
@@ -83,10 +85,10 @@ void loop(void)
     sprintf(value_a, "%f\t", mpu_data.ACC_Z);
     send_string(value_a, 10);
 
-    memset(value_a, 0x00, 10);
-    itoa(mpu_data.TEMP, value_a, 10);
-    send_string(value_a, 10);
-    send_string("\t", 2);
+//    memset(value_a, 0x00, 10);
+//    itoa(mpu_data.TEMP, value_a, 10);
+//    send_string(value_a, 10);
+//    send_string("\t", 2);
 
     memset(value_a, 0x00, 10);
     sprintf(value_a, "%f\t", mpu_data.GYR_X);

@@ -26,18 +26,6 @@
 #include <stdbool.h>
 #include <string.h>
 
-// Raw data struct of MPU-6050
-typedef struct MPU_DATA_RAW_
-{
-    int16_t ACC_X;
-    int16_t ACC_Y;
-    int16_t ACC_Z;
-    int16_t TEMP;
-    int16_t GYR_X;
-    int16_t GYR_Y;
-    int16_t GYR_Z;
-} MPU_DATA_RAW;
-
 // Actual data struct of MPU-6050
 typedef struct MPU_DATA_
 {
@@ -50,29 +38,28 @@ typedef struct MPU_DATA_
     float GYR_Z;
 } MPU_DATA;
 
-// Acceleration config
-typedef enum MPU_ACC_CONF_
-{
-    ACC_2G  = 0,
-    ACC_4G  = 1,
-    ACC_8G  = 2,
-    ACC_16G = 3
-} MPU_ACC_CONF;
-
-// Gyro config
-typedef enum MPU_GYR_CONF_
-{
-    GYR_250  = 0,
-    GYR_500  = 1,
-    GYR_1000 = 2,
-    GYR_2000 = 3
-} MPU_GYR_CONF;
+//// Acceleration config
+//typedef enum MPU_ACC_CONF_
+//{
+//    ACC_2G  = 0,
+//    ACC_4G  = 1,
+//    ACC_8G  = 2,
+//    ACC_16G = 3
+//} MPU_ACC_CONF;
+//
+//// Gyro config
+//typedef enum MPU_GYR_CONF_
+//{
+//    GYR_250  = 0,
+//    GYR_500  = 1,
+//    GYR_1000 = 2,
+//    GYR_2000 = 3
+//} MPU_GYR_CONF;
 
 void setup_i2c(void);
 void i2c_read(uint8_t reg_addr);
 void setup_mpu_6050(void);
 void setup_ratio(MPU_ACC_CONF acc_conf, MPU_GYR_CONF gyr_conf);
-void request_raw_mpu_data(MPU_DATA_RAW* data);
 void request_mpu_data(MPU_DATA* data);
 
 
