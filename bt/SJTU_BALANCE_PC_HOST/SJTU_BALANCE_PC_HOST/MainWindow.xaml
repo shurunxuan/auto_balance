@@ -1,0 +1,215 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SJTU_BALANCE_PC_HOST"
+        xmlns:system="clr-namespace:System;assembly=mscorlib" x:Name="Window" x:Class="SJTU_BALANCE_PC_HOST.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="796.877" Width="1070.848" SizeChanged="MainWindow_SizeChanged">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="224*"/>
+            <RowDefinition Height="105*"/>
+            <RowDefinition Height="201*"/>
+            <RowDefinition Height="240*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="Balance Car Bluetooth Port" Margin="10,10,9.5,10" Grid.Column="0" Grid.Row="0">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="PortNameCombo" Margin="0" Height ="22" VerticalContentAlignment="Center" Text="COM8" Grid.Row="0" Grid.Column="1"/>
+                <Button x:Name="OpenPortButton" Content="Open Port" Height="22" Margin="0" VerticalAlignment="Center" IsEnabled="False" Click="OpenPortButton_Click" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0"/>
+                <Label HorizontalAlignment="Left" Margin="0" Content="Port Name" BorderBrush="{x:Null}" VerticalContentAlignment="Center" Padding="0" Grid.Row="0" Grid.Column="0"/>
+                <Label HorizontalAlignment="Left" Margin="0" Content="Baud Rate" BorderBrush="{x:Null}" VerticalContentAlignment="Center" Padding="0" Grid.Row="1" Grid.Column="0"/>
+                <ComboBox x:Name="BaudRateCombo" Margin="0" Height ="22" VerticalContentAlignment="Center" SelectedIndex="1" Grid.Row="1" Grid.Column="1">
+                    <system:String>4800</system:String>
+                    <system:String>9600</system:String>
+                    <system:String>19200</system:String>
+                    <system:String>38400</system:String>
+                    <system:String>57200</system:String>
+                    <system:String>115200</system:String>
+                </ComboBox>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Basic Functions" Margin="10,10,9.5,10.5" Grid.Row ="1" Grid.RowSpan="2" Grid.Column="0">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button x:Name="CheckVersionButton" Content="Check Version" Margin="0" VerticalAlignment="Center" Click="CheckVersionButton_Click" Grid.Row="0"/>
+                <Button x:Name="GetAccXButton" Content="Get ACC__X" Margin="0" VerticalAlignment="Center" Click="GetAccXButton_Click" Grid.Row="1"/>
+                <Button x:Name="GetAccYButton" Content="Get ACC__Y" Margin="0" VerticalAlignment="Center" Click="GetAccYButton_Click" Grid.Row="2"/>
+                <Button x:Name="GetAccZButton" Content="Get ACC__Z" Margin="0" VerticalAlignment="Center" Click="GetAccZButton_Click" Grid.Row="3"/>
+                <Button x:Name="GetGyrXButton" Content="Get GYR__X" Margin="0" VerticalAlignment="Center" Click="GetGyrXButton_Click" Grid.Row="4"/>
+                <Button x:Name="GetGyrYButton" Content="Get GYR__Y" Margin="0" VerticalAlignment="Center" Click="GetGyrYButton_Click" Grid.Row="5"/>
+                <Button x:Name="GetGyrZButton" Content="Get GYR__Z" Margin="0" VerticalAlignment="Center" Click="GetGyrZButton_Click" Grid.Row="6"/>
+                <Button x:Name="GetAllMpuDataButton" Content="Get All MPU Data" Margin="0" VerticalAlignment="Center" Click="GetAllMpuDataButton_Click" Grid.Row="7"/>
+                <CheckBox x:Name="AutoUpdateCheckBox" Content="Auto Update MPU Data" HorizontalAlignment="Center" Height="20" Margin="0" VerticalAlignment="Center" Width="164" VerticalContentAlignment="Center" Checked="AutoUpdateCheckBox_Checked" Unchecked="AutoUpdateCheckBox_Unchecked" Grid.Row="8"/>
+
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="MPU-6050 Status" Margin="10.5,10,10.5,11" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Label HorizontalAlignment="Right" Height="22" Margin="0,0,10,0" Content="ACC__X" VerticalAlignment="Center" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0" BorderBrush="{x:Null}" Grid.Row="0" Grid.Column="0"/>
+                <Label HorizontalAlignment="Right" Height="22" Margin="0,0,10,0" Content="ACC__Y" VerticalAlignment="Center" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0" BorderBrush="{x:Null}" Grid.Row="1" Grid.Column="0"/>
+                <Label HorizontalAlignment="Right" Height="22" Margin="0,0,10,0" Content="ACC__Z" VerticalAlignment="Center" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0" BorderBrush="{x:Null}" Grid.Row="2" Grid.Column="0"/>
+                <Label HorizontalAlignment="Right" Height="22" Margin="0,0,10,0" Content="GYR__X" VerticalAlignment="Center" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0" BorderBrush="{x:Null}" Grid.Row="3" Grid.Column="0"/>
+                <Label HorizontalAlignment="Right" Height="22" Margin="0,0,10,0" Content="GYR__Y" VerticalAlignment="Center" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0" BorderBrush="{x:Null}" Grid.Row="4" Grid.Column="0"/>
+                <Label HorizontalAlignment="Right" Height="22" Margin="0,0,10,0" Content="GYR__Z" VerticalAlignment="Center" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0" BorderBrush="{x:Null}" Grid.Row="5" Grid.Column="0"/>
+                <Label x:Name="AccXLabel" HorizontalAlignment="Left" Height="22" Margin="10,0,0,0" Content="" VerticalAlignment="Center" BorderBrush="{x:Null}" VerticalContentAlignment="Center" Padding="0" Grid.Row="0" Grid.Column="1"/>
+                <Label x:Name="AccYLabel" HorizontalAlignment="Left" Height="22" Margin="10,0,0,0" Content="" VerticalAlignment="Center" BorderBrush="{x:Null}" VerticalContentAlignment="Center" Padding="0" Grid.Row="1" Grid.Column="1"/>
+                <Label x:Name="AccZLabel" HorizontalAlignment="Left" Height="22" Margin="10,0,0,0" Content="" VerticalAlignment="Center" BorderBrush="{x:Null}" VerticalContentAlignment="Center" Padding="0" Grid.Row="2" Grid.Column="1"/>
+                <Label x:Name="GyrXLabel" HorizontalAlignment="Left" Height="22" Margin="10,0,0,0" Content="" VerticalAlignment="Center" BorderBrush="{x:Null}" VerticalContentAlignment="Center" Padding="0" Grid.Row="3" Grid.Column="1"/>
+                <Label x:Name="GyrYLabel" HorizontalAlignment="Left" Height="22" Margin="10,0,0,0" Content="" VerticalAlignment="Center" BorderBrush="{x:Null}" VerticalContentAlignment="Center" Padding="0" Grid.Row="4" Grid.Column="1"/>
+                <Label x:Name="GyrZLabel" HorizontalAlignment="Left" Height="22" Margin="10,0,0,0" Content="" VerticalAlignment="Center" BorderBrush="{x:Null}" VerticalContentAlignment="Center" Padding="0" Grid.Row="5" Grid.Column="1"/>
+
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="MPU-6050 Status" Margin="9.5,10,10,10.5" Grid.Column="2" Grid.Row="0" Grid.RowSpan="3">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Canvas x:Name="MpuCanvas" Margin="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="6"/>
+                <CheckBox x:Name="LegendCheckBox0" Content="ACC__X" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="True" Checked="LegendCheckBox0_Checked" Unchecked="LegendCheckBox0_Unchecked" Grid.Row="1" Grid.Column="0"/>
+                <CheckBox x:Name="LegendCheckBox1" Content="ACC__Y" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="True" Checked="LegendCheckBox1_Checked" Unchecked="LegendCheckBox1_Unchecked" Grid.Row="1" Grid.Column="1"/>
+                <CheckBox x:Name="LegendCheckBox2" Content="ACC__Z" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="True" Checked="LegendCheckBox2_Checked" Unchecked="LegendCheckBox2_Unchecked" Grid.Row="1" Grid.Column="2"/>
+                <CheckBox x:Name="LegendCheckBox3" Content="GYR__X" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="True" Checked="LegendCheckBox3_Checked" Unchecked="LegendCheckBox3_Unchecked" Grid.Row="1" Grid.Column="3"/>
+                <CheckBox x:Name="LegendCheckBox4" Content="GYR__Y" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="True" Checked="LegendCheckBox4_Checked" Unchecked="LegendCheckBox4_Unchecked" Grid.Row="1" Grid.Column="4"/>
+                <CheckBox x:Name="LegendCheckBox5" Content="GYR__Z" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="True" Checked="LegendCheckBox5_Checked" Unchecked="LegendCheckBox5_Unchecked" Grid.Row="1" Grid.Column="5"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Car Posture" Margin="10.5,9,10.5,10.5" Grid.Column="1" Grid.Row="2">
+            <Grid Margin="10">
+                <Viewport3D x:Name="PostureViewport" Margin="0">
+                    <Viewport3D.Camera>
+                        <PerspectiveCamera
+                            FarPlaneDistance="20" 
+                            LookDirection="0,-0.5,3" 
+                            UpDirection="0,1,0" 
+                            NearPlaneDistance="1" 
+                            Position="0,0.5,-3" 
+                            FieldOfView="45" />
+                    </Viewport3D.Camera>
+
+                    <Viewport3D.Children>
+
+                        <ModelVisual3D>
+                            <ModelVisual3D.Content>
+
+                                <Model3DGroup >
+                                    <Model3DGroup.Children>
+
+                                        <!-- Lights, MeshGeometry3D and DiffuseMaterial objects are added to the ModelVisual3D. -->
+                                        <DirectionalLight Color="#FFFFFFFF" Direction="3,-4,5" />
+                                        <AmbientLight Color="OrangeRed"></AmbientLight>
+                                        <!-- Define a red cone. -->
+                                        <GeometryModel3D x:Name="Model">
+
+                                            <GeometryModel3D.Geometry>
+                                                <MeshGeometry3D Positions="-0.5,-0.1,-0.8 0.5,-0.1,-0.8 0.5,0.1,-0.8 -0.5,0.1,-0.8 -0.5,0.1,0.8 -0.5,-0.1,0.8 0.5,-0.1,0.8 0.5,0.1,0.8"
+                                                                TriangleIndices="0,2,1 0,3,2 0,4,3 0,5,4 0,1,6 0,6,5 3,4,7 3,7,2 4,5,6 4,6,7 7,6,1 7,1,2">
+                                                </MeshGeometry3D>
+                                            </GeometryModel3D.Geometry>
+
+                                            <GeometryModel3D.Material>
+                                                <DiffuseMaterial>
+                                                    <DiffuseMaterial.Brush>
+                                                        <SolidColorBrush Color="Yellow" Opacity="1.0"/>
+                                                    </DiffuseMaterial.Brush>
+                                                </DiffuseMaterial>
+                                            </GeometryModel3D.Material>
+
+                                        </GeometryModel3D>
+
+                                    </Model3DGroup.Children>
+                                </Model3DGroup>
+
+                            </ModelVisual3D.Content>
+
+                        </ModelVisual3D>
+
+                    </Viewport3D.Children>
+                </Viewport3D>
+                <Button x:Name="PostureResetButton" Content="Reset" HorizontalAlignment="Right" Height="25" Margin="0" VerticalAlignment="Top" Width="64" Click="PostureResetButton_Click"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Parameters" Margin="10,9.5,9.5,9.5" Grid.Row ="3" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button x:Name="GetBalanceKpButton" Content="Get Balance k__p" Margin="0,0,5,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Click="GetBalanceKpButton_Click"/>
+                <Button x:Name="GetBalanceKiButton" Content="Get Balance k__d" Margin="0,0,5,0" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Click="GetBalanceKiButton_Click"/>
+                <Button x:Name="GetVelocityKpButton" Content="Get Velocity k__p" Margin="0,0,5,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Click="GetVelocityKpButton_Click"/>
+                <Button x:Name="GetVelocityKiButton" Content="Get Velocity k__i" Margin="0,0,5,0" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Click="GetVelocityKiButton_Click"/>
+                <Button x:Name="GetAngleButton" Content="Get Angle" Margin="0,0,5,0" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" Click="GetAngleButton_Click"/>
+                <TextBox Name="BalanceKpTextBox" Margin="5,0,5,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"/>
+                <TextBox Name="BalanceKiTextBox" Margin="5,0,5,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+                <TextBox Name="VelocityKpTextBox" Margin="5,0,5,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
+                <TextBox Name="VelocityKiTextBox" Margin="5,0,5,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1"/>
+                <TextBox Name="AngleTextBox" Margin="5,0,5,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1"/>
+                <TextBox Name="SpeedTextBox" Margin="5,0,5,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Button x:Name="SetBalanceKpButton" Content="Set Balance k__p" Margin="0,0,5,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" Click="SetBalanceKpButton_Click"/>
+                <Button x:Name="SetBalanceKiButton" Content="Set Balance k__d" Margin="0,0,5,0" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Click="SetBalanceKiButton_Click"/>
+                <Button x:Name="SetVelocityKpButton" Content="Set Velocity k__p" Margin="0,0,5,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2" Click="SetVelocityKpButton_Click"/>
+                <Button x:Name="SetVelocityKiButton" Content="Set Velocity k__i" Margin="0,0,5,0" VerticalAlignment="Center" Grid.Row="3" Grid.Column="2" Click="SetVelocityKiButton_Click"/>
+                <Button x:Name="SetAngleButton" Content="Set Angle" Margin="0,0,5,0" VerticalAlignment="Center" Grid.Row="4" Grid.Column="2" Click="SetAngleButton_Click"/>
+                <Button x:Name="SetSpeedButton" Content="Set Speed" Margin="0,0,5,0" VerticalAlignment="Center" Grid.Row="5" Grid.Column="2" Click="SetSpeedButton_Click"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
