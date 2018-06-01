@@ -1,0 +1,716 @@
+******************************************************************************
+                  TI ARM Linker PC v16.9.6                     
+******************************************************************************
+>> Linked Mon May 28 15:43:20 2018
+
+OUTPUT FILE NAME:   <empty_MSP_EXP432P401R_nortos_ccs.out>
+ENTRY POINT SYMBOL: "_c_int00"  address: 000017f1
+
+
+MEMORY CONFIGURATION
+
+         name            origin    length      used     unused   attr    fill
+----------------------  --------  ---------  --------  --------  ----  --------
+  MAIN                  00000000   00040000  000022b5  0003dd4b  R  X
+  INFO                  00200000   00004000  00000000  00004000  R  X
+  SRAM_CODE             01000000   00010000  00000382  0000fc7e  RW X
+  SRAM_DATA             20000000   00010000  00000382  0000fc7e  RW  
+
+
+SEGMENT ALLOCATION MAP
+
+run origin  load origin   length   init length attrs members
+----------  ----------- ---------- ----------- ----- -------
+00000000    00000000    000022b8   000022b8    r-x
+  00000000    00000000    000000e4   000000e4    r-- .intvecs
+  000000e4    000000e4    00002066   00002066    r-x .text
+  0000214c    0000214c    000000e3   000000e3    r-- .const
+  00002230    00002230    00000088   00000088    r-- .cinit
+20000000    20000000    00000182   00000000    rw-
+  20000000    20000000    000000d8   00000000    rw- .bss
+  200000d8    200000d8    000000aa   00000000    rw- .data
+2000fe00    2000fe00    00000200   00000000    rw-
+  2000fe00    2000fe00    00000200   00000000    rw- .stack
+
+
+SECTION ALLOCATION MAP
+
+ output                                  attributes/
+section   page    origin      length       input sections
+--------  ----  ----------  ----------   ----------------
+.intvecs   0    00000000    000000e4     
+                  00000000    000000e4     startup_msp432p401r_ccs.obj (.intvecs:retain)
+
+.binit     0    00000000    00000000     
+
+.text      0    000000e4    00002066     
+                  000000e4    0000028c     filter.obj (.text:Kalman_Filter)
+                  00000370    00000220     mpu_6050.obj (.text:request_mpu_data)
+                  00000590    00000212     protocol.obj (.text:process_command)
+                  000007a2    00000002     startup_msp432p401r_ccs.obj (.text:Default_Handler)
+                  000007a4    000001f4     main_prog.obj (.text:loop)
+                  00000998    000001c4     motor.obj (.text:setup_pwm)
+                  00000b5c    000001b6     rtsv7M4_T_le_v4SPD16_eabi.lib : fd_add_t2.obj (.text)
+                  00000d12    00000002                                   : mpu_init.obj (.text)
+                  00000d14    00000158                                   : e_atan2f.obj (.text)
+                  00000e6c    00000150                                   : s_atanf.obj (.text)
+                  00000fbc    0000012c     PID.obj (.text:velocity)
+                  000010e8    000000fc     rtsv7M4_T_le_v4SPD16_eabi.lib : fd_mul_t2.obj (.text)
+                  000011e4    000000c4     mpu_6050.obj (.text:EUSCIB0_IRQHandler)
+                  000012a8    000000b0     uart.obj (.text:setup_uart)
+                  00001358    0000009c     rtsv7M4_T_le_v4SPD16_eabi.lib : memcpy_t2.obj (.text)
+                  000013f4    00000090     uart.obj (.text:EUSCIA2_IRQHandler)
+                  00001484    0000007a     rtsv7M4_T_le_v4SPD16_eabi.lib : memset_t2.obj (.text)
+                  000014fe    00000002                                   : startup.obj (.text)
+                  00001500    00000078     system_msp432p401r.obj (.text:SystemInit)
+                  00001578    00000074     mpu_6050.obj (.text:setup_i2c)
+                  000015ec    00000070     rtsv7M4_T_le_v4SPD16_eabi.lib : autoinit.obj (.text)
+                  0000165c    0000006e                                   : fd_tos_t2.obj (.text)
+                  000016ca    00000068                                   : copy_decompress_lzss.obj (.text:decompress:lzss)
+                  00001732    00000064     protocol.obj (.text:get_all_data)
+                  00001796    00000002     --HOLE-- [fill = 0]
+                  00001798    00000058     PID.obj (.text:balance)
+                  000017f0    00000054     rtsv7M4_T_le_v4SPD16_eabi.lib : boot.obj (.text)
+                  00001844    00000054                                   : exit.obj (.text)
+                  00001898    00000050     uart.obj (.text:send_string_pc)
+                  000018e8    0000004c     msp432p4xx_driverlib.lib : gpio_MSP432P4XX.obj (.text:GPIO_setAsPeripheralModuleFunctionInputPin)
+                  00001934    0000004c     motor.obj (.text:T32_INT1_IRQHandler)
+                  00001980    0000004c     rtsv7M4_T_le_v4SPD16_eabi.lib : cpy_tbl.obj (.text)
+                  000019cc    0000004c     mpu_6050.obj (.text:setup_mpu_6050)
+                  00001a18    00000040     uart.obj (.text:EUSCIA0_IRQHandler)
+                  00001a58    00000040     msp432p4xx_driverlib.lib : i2c_MSP432P4XX.obj (.text:I2C_masterSendMultiByteStart)
+                  00001a98    0000003c     motor.obj (.text:get_motor_1_speed)
+                  00001ad4    0000003c     motor.obj (.text:get_motor_2_speed)
+                  00001b10    00000038     rtsv7M4_T_le_v4SPD16_eabi.lib : fs_tod_t2.obj (.text)
+                  00001b48    00000036     protocol.obj (.text:get_ACC_X)
+                  00001b7e    00000036     protocol.obj (.text:get_ACC_Y)
+                  00001bb4    00000036     protocol.obj (.text:get_ACC_Z)
+                  00001bea    00000036     protocol.obj (.text:get_GYR_X)
+                  00001c20    00000036     protocol.obj (.text:get_GYR_Y)
+                  00001c56    00000036     protocol.obj (.text:get_GYR_Z)
+                  00001c8c    00000034     motor.obj (.text:PORT5_IRQHandler)
+                  00001cc0    00000030     motor.obj (.text:PORT6_IRQHandler)
+                  00001cf0    00000030     PID.obj (.text:get_angle)
+                  00001d20    00000030     PID.obj (.text:get_balance_kd)
+                  00001d50    00000030     PID.obj (.text:get_balance_kp)
+                  00001d80    00000030     PID.obj (.text:get_velocity_ki)
+                  00001db0    00000030     PID.obj (.text:get_velocity_kp)
+                  00001de0    00000030     motor.obj (.text:set_pwm_1_duty)
+                  00001e10    00000030     motor.obj (.text:set_pwm_2_duty)
+                  00001e40    0000002c     msp432p4xx_driverlib.lib : gpio_MSP432P4XX.obj (.text:GPIO_setAsInputPin)
+                  00001e6c    0000002c     main.obj (.text:main)
+                  00001e98    0000002c     main_prog.obj (.text:setup)
+                  00001ec4    00000028     motor.obj (.text:PORT1_IRQHandler)
+                  00001eec    00000024     msp432p4xx_driverlib.lib : cs_MSP432P4XX.obj (.text:CS_setDCOCenteredFrequency)
+                  00001f10    00000024                              : gpio_MSP432P4XX.obj (.text:GPIO_setAsOutputPin)
+                  00001f34    00000020     uart.obj (.text:send_char_bt)
+                  00001f54    00000018     msp432p4xx_driverlib.lib : gpio_MSP432P4XX.obj (.text:GPIO_setOutputLowOnPin)
+                  00001f6c    00000018     rtsv7M4_T_le_v4SPD16_eabi.lib : args_main.obj (.text)
+                  00001f84    00000018     PID.obj (.text:set_angle)
+                  00001f9c    00000018     PID.obj (.text:set_balance_kd)
+                  00001fb4    00000018     PID.obj (.text:set_balance_kp)
+                  00001fcc    00000018     motor.obj (.text:set_motor_1_direction)
+                  00001fe4    00000018     motor.obj (.text:set_motor_2_direction)
+                  00001ffc    00000018     PID.obj (.text:set_speed)
+                  00002014    00000018     PID.obj (.text:set_velocity_ki)
+                  0000202c    00000018     PID.obj (.text:set_velocity_kp)
+                  00002044    00000014     msp432p4xx_driverlib.lib : gpio_MSP432P4XX.obj (.text:GPIO_setOutputHighOnPin)
+                  00002058    00000014                              : gpio_MSP432P4XX.obj (.text:GPIO_toggleOutputOnPin)
+                  0000206c    00000014     mpu_6050.obj (.text:get_stored_mpu_data)
+                  00002080    00000014     rtsv7M4_T_le_v4SPD16_eabi.lib : _lock.obj (.text)
+                  00002094    00000014     motor.obj (.text:set_motor_1_backward)
+                  000020a8    00000014     motor.obj (.text:set_motor_1_forward)
+                  000020bc    00000014     motor.obj (.text:set_motor_2_backward)
+                  000020d0    00000014     motor.obj (.text:set_motor_2_forward)
+                  000020e4    00000014     motor.obj (.text:set_pwm_duty)
+                  000020f8    00000010     protocol.obj (.text:check_version)
+                  00002108    0000000e     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_none.obj (.text:decompress:none)
+                  00002116    0000000c     startup_msp432p401r_ccs.obj (.text:Reset_Handler)
+                  00002122    0000000c     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_zero_init.obj (.text:decompress:ZI)
+                  0000212e    0000000c     motor.obj (.text:start_motor)
+                  0000213a    0000000c     motor.obj (.text:stop_motor)
+                  00002146    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.obj (.text)
+
+.const     0    0000214c    000000e3     
+                  0000214c    00000034     rtsv7M4_T_le_v4SPD16_eabi.lib : s_atanf.obj (.const:$O1$$)
+                  00002180    00000030     msp432p4xx_driverlib.lib : gpio_MSP432P4XX.obj (.const:GPIO_PORT_TO_BASE)
+                  000021b0    00000024     uart.obj (.const:uartConfig)
+                  000021d4    00000018     motor.obj (.const:upDownConfig)
+                  000021ec    00000014     mpu_6050.obj (.const:i2cConfig)
+                  00002200    00000010     mpu_6050.obj (.const:ACC_RATIO)
+                  00002210    00000010     mpu_6050.obj (.const:GYR_RATIO)
+                  00002220    00000008     motor.obj (.const:.string:$P$T0$1)
+                  00002228    00000007     mpu_6050.obj (.const:.string:RegData)
+
+.cinit     0    00002230    00000088     
+                  00002230    00000061     (.cinit..data.load) [load image, compression = lzss]
+                  00002291    00000003     --HOLE-- [fill = 0]
+                  00002294    0000000c     (__TI_handler_table)
+                  000022a0    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  000022a8    00000010     (__TI_cinit_table)
+
+.init_array 
+*          0    00000000    00000000     UNINITIALIZED
+
+.bss       0    20000000    000000d8     UNINITIALIZED
+                  20000000    00000064     (.common:RXData)
+                  20000064    0000001c     (.common:mpu_data)
+                  20000080    00000010     PID.obj (.bss)
+                  20000090    00000005     mpu_6050.obj (.bss)
+                  20000095    00000004     mpu_6050.obj (.bss:RXData)
+                  20000099    00000003     --HOLE--
+                  2000009c    00000004     (.common:E)
+                  200000a0    00000004     (.common:K_0)
+                  200000a4    00000004     (.common:K_1)
+                  200000a8    00000004     (.common:PCt_0)
+                  200000ac    00000004     (.common:PCt_1)
+                  200000b0    00000004     (.common:angle)
+                  200000b4    00000004     (.common:angle_dot)
+                  200000b8    00000004     (.common:angle_err)
+                  200000bc    00000004     (.common:encoder_count_1)
+                  200000c0    00000004     (.common:encoder_count_2)
+                  200000c4    00000004     (.common:motor_1_speed)
+                  200000c8    00000004     (.common:motor_2_speed)
+                  200000cc    00000004     (.common:q_bias)
+                  200000d0    00000004     (.common:t_0)
+                  200000d4    00000004     (.common:t_1)
+
+.data      0    200000d8    000000aa     UNINITIALIZED
+                  200000d8    0000001c     main_prog.obj (.data)
+                  200000f4    00000018     PID.obj (.data)
+                  2000010c    00000018     filter.obj (.data)
+                  20000124    00000010     filter.obj (.data:P)
+                  20000134    00000010     filter.obj (.data:Pdot)
+                  20000144    00000010     motor.obj (.data:compareConfig_PWM1)
+                  20000154    00000010     motor.obj (.data:compareConfig_PWM2)
+                  20000164    0000000c     rtsv7M4_T_le_v4SPD16_eabi.lib : exit.obj (.data:$O1$$)
+                  20000170    00000008                                   : _lock.obj (.data:$O1$$)
+                  20000178    00000004                                   : stkdepth_vars.obj (.data)
+                  2000017c    00000002     motor.obj (.data)
+                  2000017e    00000002     mpu_6050.obj (.data)
+                  20000180    00000002     uart.obj (.data)
+
+.stack     0    2000fe00    00000200     UNINITIALIZED
+                  2000fe00    00000200     --HOLE--
+
+MODULE SUMMARY
+
+       Module                        code   ro data   rw data
+       ------                        ----   -------   -------
+    .\
+       motor.obj                     1056   32        100    
+       mpu_6050.obj                  952    59        22     
+       protocol.obj                  970    0         0      
+       PID.obj                       772    0         80     
+       filter.obj                    652    0         200    
+       uart.obj                      496    36        204    
+       main_prog.obj                 544    0         112    
+       system_msp432p401r.obj        120    0         0      
+       main.obj                      44     0         0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        5606   127       718    
+                                                             
+    .\ccs\
+       startup_msp432p401r_ccs.obj   14     228       0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        14     228       0      
+                                                             
+    C:/ti/simplelink_msp432p4_sdk_1_60_00_12/source/ti/devices/msp432p4xx/driverlib/ccs/msp432p4xx_driverlib.lib
+       gpio_MSP432P4XX.obj           220    48        0      
+       i2c_MSP432P4XX.obj            64     0         0      
+       cs_MSP432P4XX.obj             36     0         0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        320    48        0      
+                                                             
+    C:\ti\ccsv7\tools\compiler\ti-cgt-arm_16.9.6.LTS\lib\rtsv7M4_T_le_v4SPD16_eabi.lib
+       fd_add_t2.obj                 438    0         0      
+       s_atanf.obj                   336    52        0      
+       e_atan2f.obj                  344    0         0      
+       fd_mul_t2.obj                 252    0         0      
+       memcpy_t2.obj                 156    0         0      
+       memset_t2.obj                 122    0         0      
+       autoinit.obj                  112    0         0      
+       fd_tos_t2.obj                 110    0         0      
+       exit.obj                      84     0         24     
+       copy_decompress_lzss.obj      104    0         0      
+       boot.obj                      84     0         0      
+       cpy_tbl.obj                   76     0         0      
+       fs_tod_t2.obj                 56     0         0      
+       _lock.obj                     20     0         16     
+       args_main.obj                 24     0         0      
+       copy_decompress_none.obj      14     0         0      
+       copy_zero_init.obj            12     0         0      
+       stkdepth_vars.obj             0      0         8      
+       pre_init.obj                  4      0         0      
+       mpu_init.obj                  2      0         0      
+       startup.obj                   2      0         0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        2352   52        48     
+                                                             
+       Stack:                        0      0         1024   
+       Linker Generated:             0      133       0      
+    +--+-----------------------------+------+---------+---------+
+       Grand Total:                  8292   588       1790   
+
+
+LINKER GENERATED COPY TABLES
+
+__TI_cinit_table @ 000022a8 records: 2, size/record: 8, table size: 16
+	.data: load addr=00002230, load size=00000061 bytes, run addr=200000d8, run size=000000aa bytes, compression=lzss
+	.bss: load addr=000022a0, load size=00000008 bytes, run addr=20000000, run size=000000d8 bytes, compression=zero_init
+
+
+LINKER GENERATED HANDLER TABLE
+
+__TI_handler_table @ 00002294 records: 3, size/record: 4, table size: 12
+	index: 0, handler: __TI_decompress_lzss
+	index: 1, handler: __TI_decompress_none
+	index: 2, handler: __TI_zero_init
+
+
+GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
+
+address   name                                      
+-------   ----                                      
+00002200  ACC_RATIO                                 
+000007a3  ADC14_IRQHandler                          
+000007a3  AES256_IRQHandler                         
+000007a3  BusFault_Handler                          
+00001845  C$$EXIT                                   
+000007a3  COMP_E0_IRQHandler                        
+000007a3  COMP_E1_IRQHandler                        
+000007a3  CS_IRQHandler                             
+00001eed  CS_setDCOCenteredFrequency                
+20000120  C_0                                       
+000007a3  DMA_ERR_IRQHandler                        
+000007a3  DMA_INT0_IRQHandler                       
+000007a3  DMA_INT1_IRQHandler                       
+000007a3  DMA_INT2_IRQHandler                       
+000007a3  DMA_INT3_IRQHandler                       
+000007a3  DebugMon_Handler                          
+000007a3  Default_Handler                           
+2000009c  E                                         
+00001a19  EUSCIA0_IRQHandler                        
+00001a19  EUSCIA0_IRQHandler                        
+000007a3  EUSCIA1_IRQHandler                        
+000013f5  EUSCIA2_IRQHandler                        
+000013f5  EUSCIA2_IRQHandler                        
+000007a3  EUSCIA3_IRQHandler                        
+000011e5  EUSCIB0_IRQHandler                        
+000011e5  EUSCIB0_IRQHandler                        
+000007a3  EUSCIB1_IRQHandler                        
+000007a3  EUSCIB2_IRQHandler                        
+000007a3  EUSCIB3_IRQHandler                        
+000007a3  FLCTL_IRQHandler                          
+000007a3  FPU_IRQHandler                            
+00001e41  GPIO_setAsInputPin                        
+00001f11  GPIO_setAsOutputPin                       
+000018e9  GPIO_setAsPeripheralModuleFunctionInputPin
+00002045  GPIO_setOutputHighOnPin                   
+00001f55  GPIO_setOutputLowOnPin                    
+00002059  GPIO_toggleOutputOnPin                    
+00002210  GYR_RATIO                                 
+000007a3  HardFault_Handler                         
+00001a59  I2C_masterSendMultiByteStart              
+2000010c  K1                                        
+20000110  K2                                        
+200000a0  K_0                                       
+200000a4  K_1                                       
+000000e5  Kalman_Filter                             
+000007a3  MemManage_Handler                         
+000007a3  NMI_Handler                               
+20000124  P                                         
+000007a3  PCM_IRQHandler                            
+200000a8  PCt_0                                     
+200000ac  PCt_1                                     
+00001ec5  PORT1_IRQHandler                          
+00001ec5  PORT1_IRQHandler                          
+000007a3  PORT2_IRQHandler                          
+000007a3  PORT3_IRQHandler                          
+000007a3  PORT4_IRQHandler                          
+00001c8d  PORT5_IRQHandler                          
+00001c8d  PORT5_IRQHandler                          
+00001cc1  PORT6_IRQHandler                          
+00001cc1  PORT6_IRQHandler                          
+000007a3  PSS_IRQHandler                            
+20000134  Pdot                                      
+000007a3  PendSV_Handler                            
+20000114  Q_angle                                   
+20000118  Q_gyro                                    
+000007a3  RTC_C_IRQHandler                          
+20000000  RXData                                    
+20000180  RXData_length                             
+2000011c  R_angle                                   
+00002228  RegData                                   
+00002117  Reset_Handler                             
+UNDEFED   SHT$$INIT_ARRAY$$Base                     
+UNDEFED   SHT$$INIT_ARRAY$$Limit                    
+000007a3  SVC_Handler                               
+000007a3  SysTick_Handler                           
+00001501  SystemInit                                
+00001935  T32_INT1_IRQHandler                       
+00001935  T32_INT1_IRQHandler                       
+000007a3  T32_INT2_IRQHandler                       
+000007a3  T32_INTC_IRQHandler                       
+000007a3  TA0_0_IRQHandler                          
+000007a3  TA0_N_IRQHandler                          
+000007a3  TA1_0_IRQHandler                          
+000007a3  TA1_N_IRQHandler                          
+000007a3  TA2_0_IRQHandler                          
+000007a3  TA2_N_IRQHandler                          
+000007a3  TA3_0_IRQHandler                          
+000007a3  TA3_N_IRQHandler                          
+000007a3  UsageFault_Handler                        
+4000480c  WDTCTL_SYM                                
+000007a3  WDT_A_IRQHandler                          
+20010000  __STACK_END                               
+00000200  __STACK_SIZE                              
+000022a8  __TI_CINIT_Base                           
+000022b8  __TI_CINIT_Limit                          
+00002294  __TI_Handler_Table_Base                   
+000022a0  __TI_Handler_Table_Limit                  
+000015ed  __TI_auto_init                            
+20000164  __TI_cleanup_ptr                          
+000016cb  __TI_decompress_lzss                      
+00002109  __TI_decompress_none                      
+20000168  __TI_dtors_ptr                            
+2000016c  __TI_enable_exit_profile_output           
+ffffffff  __TI_pprof_out_hndl                       
+ffffffff  __TI_prof_data_size                       
+ffffffff  __TI_prof_data_start                      
+00000000  __TI_static_base__                        
+00002123  __TI_zero_init                            
+0000165d  __aeabi_d2f                               
+00000b67  __aeabi_dadd                              
+000010e9  __aeabi_dmul                              
+00000b5d  __aeabi_dsub                              
+00001b11  __aeabi_f2d                               
+00001485  __aeabi_memclr                            
+00001485  __aeabi_memclr4                           
+00001485  __aeabi_memclr8                           
+00001359  __aeabi_memcpy                            
+00001359  __aeabi_memcpy4                           
+00001359  __aeabi_memcpy8                           
+00001487  __aeabi_memset                            
+00001487  __aeabi_memset4                           
+00001487  __aeabi_memset8                           
+ffffffff  __binit__                                 
+ffffffff  __c_args__                                
+00000d13  __mpu_init                                
+2000fe00  __stack                                   
+00001f6d  _args_main                                
+000017f1  _c_int00                                  
+20000170  _lock                                     
+0000208f  _nop                                      
+00002087  _register_lock                            
+00002081  _register_unlock                          
+000014ff  _system_post_cinit                        
+00002147  _system_pre_init                          
+20000174  _unlock                                   
+00001849  abort                                     
+200000b0  angle                                     
+200000b4  angle_dot                                 
+200000b8  angle_err                                 
+00000d15  atan2f                                    
+00000e6d  atanf                                     
+00001799  balance                                   
+20000104  balance_angle                             
+200000f8  balance_k_d                               
+200000f4  balance_k_p                               
+ffffffff  binit                                     
+000020f9  check_version                             
+20000144  compareConfig_PWM1                        
+20000154  compareConfig_PWM2                        
+00001981  copy_in                                   
+200000dc  dt                                        
+200000bc  encoder_count_1                           
+200000c0  encoder_count_2                           
+00001851  exit                                      
+00001b49  get_ACC_X                                 
+00001b7f  get_ACC_Y                                 
+00001bb5  get_ACC_Z                                 
+00001beb  get_GYR_X                                 
+00001c21  get_GYR_Y                                 
+00001c57  get_GYR_Z                                 
+00001733  get_all_data                              
+00001cf1  get_angle                                 
+00001d21  get_balance_kd                            
+00001d51  get_balance_kp                            
+00001a99  get_motor_1_speed                         
+00001ad5  get_motor_2_speed                         
+0000206d  get_stored_mpu_data                       
+00001d81  get_velocity_ki                           
+00001db1  get_velocity_kp                           
+000021ec  i2cConfig                                 
+00000000  interruptVectors                          
+200000d8  k                                         
+000007a5  loop                                      
+00001e6d  main                                      
+20000178  main_func_sp                              
+00001359  memcpy                                    
+0000148d  memset                                    
+2000017c  motor_1_direction                         
+200000c4  motor_1_speed                             
+2000017d  motor_2_direction                         
+200000c8  motor_2_speed                             
+20000064  mpu_data                                  
+00000591  process_command                           
+200000cc  q_bias                                    
+00000371  request_mpu_data                          
+00001f35  send_char_bt                              
+00001899  send_string_pc                            
+00001f85  set_angle                                 
+00001f9d  set_balance_kd                            
+00001fb5  set_balance_kp                            
+00002095  set_motor_1_backward                      
+00001fcd  set_motor_1_direction                     
+000020a9  set_motor_1_forward                       
+000020bd  set_motor_2_backward                      
+00001fe5  set_motor_2_direction                     
+000020d1  set_motor_2_forward                       
+00001de1  set_pwm_1_duty                            
+00001e11  set_pwm_2_duty                            
+000020e5  set_pwm_duty                              
+00001ffd  set_speed                                 
+00002015  set_velocity_ki                           
+0000202d  set_velocity_kp                           
+00001e99  setup                                     
+00001579  setup_i2c                                 
+000019cd  setup_mpu_6050                            
+00000999  setup_pwm                                 
+000012a9  setup_uart                                
+20000108  speed                                     
+0000212f  start_motor                               
+0000213b  stop_motor                                
+200000d0  t_0                                       
+200000d4  t_1                                       
+000021b0  uartConfig                                
+000021d4  upDownConfig                              
+00000fbd  velocity                                  
+20000100  velocity_k_i                              
+200000fc  velocity_k_p                              
+
+
+GLOBAL SYMBOLS: SORTED BY Symbol Address 
+
+address   name                                      
+-------   ----                                      
+00000000  __TI_static_base__                        
+00000000  interruptVectors                          
+000000e5  Kalman_Filter                             
+00000200  __STACK_SIZE                              
+00000371  request_mpu_data                          
+00000591  process_command                           
+000007a3  ADC14_IRQHandler                          
+000007a3  AES256_IRQHandler                         
+000007a3  BusFault_Handler                          
+000007a3  COMP_E0_IRQHandler                        
+000007a3  COMP_E1_IRQHandler                        
+000007a3  CS_IRQHandler                             
+000007a3  DMA_ERR_IRQHandler                        
+000007a3  DMA_INT0_IRQHandler                       
+000007a3  DMA_INT1_IRQHandler                       
+000007a3  DMA_INT2_IRQHandler                       
+000007a3  DMA_INT3_IRQHandler                       
+000007a3  DebugMon_Handler                          
+000007a3  Default_Handler                           
+000007a3  EUSCIA1_IRQHandler                        
+000007a3  EUSCIA3_IRQHandler                        
+000007a3  EUSCIB1_IRQHandler                        
+000007a3  EUSCIB2_IRQHandler                        
+000007a3  EUSCIB3_IRQHandler                        
+000007a3  FLCTL_IRQHandler                          
+000007a3  FPU_IRQHandler                            
+000007a3  HardFault_Handler                         
+000007a3  MemManage_Handler                         
+000007a3  NMI_Handler                               
+000007a3  PCM_IRQHandler                            
+000007a3  PORT2_IRQHandler                          
+000007a3  PORT3_IRQHandler                          
+000007a3  PORT4_IRQHandler                          
+000007a3  PSS_IRQHandler                            
+000007a3  PendSV_Handler                            
+000007a3  RTC_C_IRQHandler                          
+000007a3  SVC_Handler                               
+000007a3  SysTick_Handler                           
+000007a3  T32_INT2_IRQHandler                       
+000007a3  T32_INTC_IRQHandler                       
+000007a3  TA0_0_IRQHandler                          
+000007a3  TA0_N_IRQHandler                          
+000007a3  TA1_0_IRQHandler                          
+000007a3  TA1_N_IRQHandler                          
+000007a3  TA2_0_IRQHandler                          
+000007a3  TA2_N_IRQHandler                          
+000007a3  TA3_0_IRQHandler                          
+000007a3  TA3_N_IRQHandler                          
+000007a3  UsageFault_Handler                        
+000007a3  WDT_A_IRQHandler                          
+000007a5  loop                                      
+00000999  setup_pwm                                 
+00000b5d  __aeabi_dsub                              
+00000b67  __aeabi_dadd                              
+00000d13  __mpu_init                                
+00000d15  atan2f                                    
+00000e6d  atanf                                     
+00000fbd  velocity                                  
+000010e9  __aeabi_dmul                              
+000011e5  EUSCIB0_IRQHandler                        
+000011e5  EUSCIB0_IRQHandler                        
+000012a9  setup_uart                                
+00001359  __aeabi_memcpy                            
+00001359  __aeabi_memcpy4                           
+00001359  __aeabi_memcpy8                           
+00001359  memcpy                                    
+000013f5  EUSCIA2_IRQHandler                        
+000013f5  EUSCIA2_IRQHandler                        
+00001485  __aeabi_memclr                            
+00001485  __aeabi_memclr4                           
+00001485  __aeabi_memclr8                           
+00001487  __aeabi_memset                            
+00001487  __aeabi_memset4                           
+00001487  __aeabi_memset8                           
+0000148d  memset                                    
+000014ff  _system_post_cinit                        
+00001501  SystemInit                                
+00001579  setup_i2c                                 
+000015ed  __TI_auto_init                            
+0000165d  __aeabi_d2f                               
+000016cb  __TI_decompress_lzss                      
+00001733  get_all_data                              
+00001799  balance                                   
+000017f1  _c_int00                                  
+00001845  C$$EXIT                                   
+00001849  abort                                     
+00001851  exit                                      
+00001899  send_string_pc                            
+000018e9  GPIO_setAsPeripheralModuleFunctionInputPin
+00001935  T32_INT1_IRQHandler                       
+00001935  T32_INT1_IRQHandler                       
+00001981  copy_in                                   
+000019cd  setup_mpu_6050                            
+00001a19  EUSCIA0_IRQHandler                        
+00001a19  EUSCIA0_IRQHandler                        
+00001a59  I2C_masterSendMultiByteStart              
+00001a99  get_motor_1_speed                         
+00001ad5  get_motor_2_speed                         
+00001b11  __aeabi_f2d                               
+00001b49  get_ACC_X                                 
+00001b7f  get_ACC_Y                                 
+00001bb5  get_ACC_Z                                 
+00001beb  get_GYR_X                                 
+00001c21  get_GYR_Y                                 
+00001c57  get_GYR_Z                                 
+00001c8d  PORT5_IRQHandler                          
+00001c8d  PORT5_IRQHandler                          
+00001cc1  PORT6_IRQHandler                          
+00001cc1  PORT6_IRQHandler                          
+00001cf1  get_angle                                 
+00001d21  get_balance_kd                            
+00001d51  get_balance_kp                            
+00001d81  get_velocity_ki                           
+00001db1  get_velocity_kp                           
+00001de1  set_pwm_1_duty                            
+00001e11  set_pwm_2_duty                            
+00001e41  GPIO_setAsInputPin                        
+00001e6d  main                                      
+00001e99  setup                                     
+00001ec5  PORT1_IRQHandler                          
+00001ec5  PORT1_IRQHandler                          
+00001eed  CS_setDCOCenteredFrequency                
+00001f11  GPIO_setAsOutputPin                       
+00001f35  send_char_bt                              
+00001f55  GPIO_setOutputLowOnPin                    
+00001f6d  _args_main                                
+00001f85  set_angle                                 
+00001f9d  set_balance_kd                            
+00001fb5  set_balance_kp                            
+00001fcd  set_motor_1_direction                     
+00001fe5  set_motor_2_direction                     
+00001ffd  set_speed                                 
+00002015  set_velocity_ki                           
+0000202d  set_velocity_kp                           
+00002045  GPIO_setOutputHighOnPin                   
+00002059  GPIO_toggleOutputOnPin                    
+0000206d  get_stored_mpu_data                       
+00002081  _register_unlock                          
+00002087  _register_lock                            
+0000208f  _nop                                      
+00002095  set_motor_1_backward                      
+000020a9  set_motor_1_forward                       
+000020bd  set_motor_2_backward                      
+000020d1  set_motor_2_forward                       
+000020e5  set_pwm_duty                              
+000020f9  check_version                             
+00002109  __TI_decompress_none                      
+00002117  Reset_Handler                             
+00002123  __TI_zero_init                            
+0000212f  start_motor                               
+0000213b  stop_motor                                
+00002147  _system_pre_init                          
+000021b0  uartConfig                                
+000021d4  upDownConfig                              
+000021ec  i2cConfig                                 
+00002200  ACC_RATIO                                 
+00002210  GYR_RATIO                                 
+00002228  RegData                                   
+00002294  __TI_Handler_Table_Base                   
+000022a0  __TI_Handler_Table_Limit                  
+000022a8  __TI_CINIT_Base                           
+000022b8  __TI_CINIT_Limit                          
+20000000  RXData                                    
+20000064  mpu_data                                  
+2000009c  E                                         
+200000a0  K_0                                       
+200000a4  K_1                                       
+200000a8  PCt_0                                     
+200000ac  PCt_1                                     
+200000b0  angle                                     
+200000b4  angle_dot                                 
+200000b8  angle_err                                 
+200000bc  encoder_count_1                           
+200000c0  encoder_count_2                           
+200000c4  motor_1_speed                             
+200000c8  motor_2_speed                             
+200000cc  q_bias                                    
+200000d0  t_0                                       
+200000d4  t_1                                       
+200000d8  k                                         
+200000dc  dt                                        
+200000f4  balance_k_p                               
+200000f8  balance_k_d                               
+200000fc  velocity_k_p                              
+20000100  velocity_k_i                              
+20000104  balance_angle                             
+20000108  speed                                     
+2000010c  K1                                        
+20000110  K2                                        
+20000114  Q_angle                                   
+20000118  Q_gyro                                    
+2000011c  R_angle                                   
+20000120  C_0                                       
+20000124  P                                         
+20000134  Pdot                                      
+20000144  compareConfig_PWM1                        
+20000154  compareConfig_PWM2                        
+20000164  __TI_cleanup_ptr                          
+20000168  __TI_dtors_ptr                            
+2000016c  __TI_enable_exit_profile_output           
+20000170  _lock                                     
+20000174  _unlock                                   
+20000178  main_func_sp                              
+2000017c  motor_1_direction                         
+2000017d  motor_2_direction                         
+20000180  RXData_length                             
+2000fe00  __stack                                   
+20010000  __STACK_END                               
+4000480c  WDTCTL_SYM                                
+ffffffff  __TI_pprof_out_hndl                       
+ffffffff  __TI_prof_data_size                       
+ffffffff  __TI_prof_data_start                      
+ffffffff  __binit__                                 
+ffffffff  __c_args__                                
+ffffffff  binit                                     
+UNDEFED   SHT$$INIT_ARRAY$$Base                     
+UNDEFED   SHT$$INIT_ARRAY$$Limit                    
+
+[217 symbols]
