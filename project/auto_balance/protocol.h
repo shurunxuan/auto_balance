@@ -52,6 +52,9 @@ void set_velocity_kp(float);
 void set_velocity_ki(float);
 void set_speed(float);
 void set_angle(float);
+void start_left_turn(void);
+void start_right_turn(void);
+void stop_turn(void);
 
 float return_balance_kp(void);
 

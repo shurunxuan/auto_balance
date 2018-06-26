@@ -13,10 +13,11 @@
 
 //float balance_k_p = 3400, balance_k_d = 30;
 //float balance_k_p = 4000, balance_k_d = 35;
-float balance_k_p = 1800, balance_k_d = 20;
+float balance_k_p = 2000, balance_k_d = 20;
 float velocity_k_p = 200, velocity_k_i = 0.1;
 float balance_angle = -7.0f;
 float speed = 0.0f;
+float turn_speed = 0.0f;
 
 float return_balance_kp(void)
 {
@@ -112,6 +113,20 @@ void set_angle(float a)
     balance_angle = a;
 }
 
+void start_left_turn(void)
+{
+    turn_speed = 2000;
+}
+void start_right_turn(void)
+{
+    turn_speed = -2000;
+}
+void stop_turn(void)
+{
+    turn_speed = 0;
+}
+
+
 int balance(float Angle , float Gyro)
 {
     float Bias;
@@ -139,10 +154,10 @@ int velocity(int encoder_left, int encoder_right)
     return Velocity;
 }
 
-int turn(int encoder_left, int encoder_right, float gyro)
+int turn(float gyro)
 {
-    float Turn, Kp = 1, Bias;
-    Bias = gyro - 0;
-    Turn = Bias * Kp;
+    float Turn, Bias;
+    Bias = gyro - turn_speed;
+    Turn = Bias * 1;
     return Turn;
 }

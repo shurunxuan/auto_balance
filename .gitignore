@@ -1,0 +1,5 @@
+
+*.out
+*.obj
+*.obj
+project/auto_balance/Debug/filter.obj

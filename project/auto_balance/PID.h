@@ -10,7 +10,7 @@
 
 int balance(float Angle , float Gyro);
 int velocity(int encoder_left, int encoder_right);
-int turn(int encoder_left,int encoder_right , float gyro);
+int turn(float gyro);
 
 
 

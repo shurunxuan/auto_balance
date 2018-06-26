@@ -70,55 +70,43 @@ void setup(void)
 void loop(void)
 {
     float angleAx, AX1;
-    char value_a[100];
+//    char value_a[100];
 
 
-    static int enleft=0,enright=0;
+    int enleft=0,enright=0;
     enleft=get_motor_1_speed();
     enright=-get_motor_2_speed();
 
-    static int PWM=0;
-    static int PWMTEM=0;
-    static int PWM1=0;
+    int PWM=0;
+    int PWMTEM=0;
+    int PWM1=0;
+    int PWM2=0;
+    int PWM_LEFT = 0;
+    int PWM_RIGHT = 0;
 
-    //
-    //AX1=Kalman_Filter(angleAx,-mpu_data.GYR_X);
-    //request_mpu_data_internal();
     request_mpu_data(&mpu_data);
-    //angleAx=atan2f(mpu_data.ACC_Z,mpu_data.ACC_Y)*180/PI;
-
     angleAx=atan2f(mpu_data.ACC_Z,mpu_data.ACC_Y)*180/PI;
     AX1=Kalman_Filter(angleAx,-mpu_data.GYR_X,dt);
-
     if (AX1 > 50 || AX1 < -50)
         stop_motor();
     else
         start_motor();
-
-//    memset(value_a, 0x00, 100);
-//    sprintf(value_a, "%d\t%d\n",enleft,enright);
-//    send_string_bt(value_a,100);
-
     PWM=balance(AX1,-mpu_data.GYR_X);
     PWM1=velocity(enleft,enright);
-//    PWMTEM=PWM;
-//    PWMTEM=-PWM1;
+    PWM2=turn(mpu_data.GYR_Y);
     PWMTEM=PWM+PWM1;
-//    PWMTEM = PWM;
-//    memset(value_a, 0x00, 100);
-//    sprintf(value_a, "%d\n",PWMTEM);
-//    send_string_bt(value_a,100);
+    PWM_LEFT = PWMTEM - PWM2;
+    PWM_RIGHT = PWMTEM + PWM2;
 
-    PWMTEM=PWMTEM/15000.0f*1000.0f;
-//    PWMTEM = PWMTEM > 1000.0f ? 1000.0f : PWMTEM;
-//    PWMTEM = PWMTEM < -1000.0f ? -1000.0f : PWMTEM;
-    PWMTEM = PWMTEM > MAX_SPEED ? MAX_SPEED : PWMTEM;
-    PWMTEM = PWMTEM < -MAX_SPEED ? -MAX_SPEED : PWMTEM;
-    //if (PWMTEM < 75 && PWMTEM > 0) PWMTEM = 75;
-    //if (PWMTEM > -75 && PWMTEM < 0) PWMTEM = -75;
+    PWM_LEFT=PWM_LEFT/15000.0f*1000.0f;
+    PWM_LEFT = PWM_LEFT > MAX_SPEED ? MAX_SPEED : PWM_LEFT;
+    PWM_LEFT = PWM_LEFT < -MAX_SPEED ? -MAX_SPEED : PWM_LEFT;
+    PWM_RIGHT=PWM_RIGHT/15000.0f*1000.0f;
+    PWM_RIGHT = PWM_RIGHT > MAX_SPEED ? MAX_SPEED : PWM_RIGHT;
+    PWM_RIGHT = PWM_RIGHT < -MAX_SPEED ? -MAX_SPEED : PWM_RIGHT;
 
-    set_motor_1_direction(PWMTEM>0);
-    set_motor_2_direction(PWMTEM<0);
-    set_pwm_duty(abs(PWMTEM),abs(PWMTEM));
+    set_motor_1_direction(PWM_LEFT>0);
+    set_motor_2_direction(PWM_RIGHT<0);
+    set_pwm_duty(abs(PWM_LEFT),abs(PWM_RIGHT));
 
 }

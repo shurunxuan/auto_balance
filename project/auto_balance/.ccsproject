@@ -3,4 +3,6 @@
 <projectOptions>
 	<deviceFamily value="MSP432"/>
 	<origin value="C:/Users/shuru/workspace_v7/empty_MSP_EXP432P401R_nortos_ccs"/>
+	<connection value="common/targetdb/connections/TIXDS110_Connection.xml"/>
+	<isTargetManual value="false"/>
 </projectOptions>

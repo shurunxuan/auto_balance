@@ -165,6 +165,18 @@ void process_command(uint16_t length, uint8_t* command)
 
         set_angle(a_u.f);
     }
+    else if (command[0] == 0x21)
+    {
+        start_left_turn();
+    }
+    else if (command[0] == 0x22)
+    {
+        start_right_turn();
+    }
+    else if (command[0] == 0x23)
+    {
+        stop_turn();
+    }
 }
 
 void check_version()
@@ -176,7 +188,6 @@ void check_version()
 void get_ACC_X()
 {
     int i;
-    float angleAx;
     MPU_DATA mpu_data;
     mpu_data = get_stored_mpu_data();
     float_u acc_x;
